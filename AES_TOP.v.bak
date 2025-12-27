@@ -1,0 +1,90 @@
+module AES_Top (
+    input  wire        clk,
+    input  wire        reset_n,
+    input  wire        enable,
+
+    // ---- 15 bytes of plaintext ----
+    input  wire [7:0] plaintext0,
+    input  wire [7:0] plaintext1,
+    input  wire [7:0] plaintext2,
+    input  wire [7:0] plaintext3,
+    input  wire [7:0] plaintext4,
+    input  wire [7:0] plaintext5,
+    input  wire [7:0] plaintext6,
+    input  wire [7:0] plaintext7,
+    input  wire [7:0] plaintext8,
+    input  wire [7:0] plaintext9,
+    input  wire [7:0] plaintext10,
+    input  wire [7:0] plaintext11,
+    input  wire [7:0] plaintext12,
+    input  wire [7:0] plaintext13,
+    input  wire [7:0] plaintext14,
+	input  wire [7:0] plaintext15,
+
+    // ---- 15 bytes of key ----
+    input  wire [7:0] key0,
+    input  wire [7:0] key1,
+    input  wire [7:0] key2,
+    input  wire [7:0] key3,
+    input  wire [7:0] key4,
+    input  wire [7:0] key5,
+    input  wire [7:0] key6,
+    input  wire [7:0] key7,
+    input  wire [7:0] key8,
+    input  wire [7:0] key9,
+    input  wire [7:0] key10,
+    input  wire [7:0] key11,
+    input  wire [7:0] key12,
+    input  wire [7:0] key13,
+    input  wire [7:0] key14,
+	input  wire [7:0] key15,
+
+    // ---- Ciphertext output (4 words of 32 bits) ----
+    output wire [31:0] ciphertext0,
+    output wire [31:0] ciphertext1,
+    output wire [31:0] ciphertext2,
+    output wire [31:0] ciphertext3
+);
+
+    // ----------------------------------------------------------------
+    //  Assemble 15 bytes into 128-bit AES input (pad remaining byte)
+    // ----------------------------------------------------------------
+    wire [127:0] plaintext128 = {
+        plaintext0, plaintext1, plaintext2, plaintext3,
+        plaintext4, plaintext5, plaintext6, plaintext7,
+        plaintext8, plaintext9, plaintext10, plaintext11,
+        plaintext12, plaintext13, plaintext14,plaintext15
+        
+    };
+
+    wire [127:0] key128 = {
+        key0, key1, key2, key3,
+        key4, key5, key6, key7,
+        key8, key9, key10, key11,
+        key12, key13, key14,key15
+        
+    };
+
+    // ----------------------------------------------------------------
+    //  AES encryption result
+    // ----------------------------------------------------------------
+    wire [127:0] ciphertext128;
+
+    AES u_aes (
+        .clk(clk),
+        .reset_n(reset_n),
+        .enable(enable),
+        .in_conduit(plaintext128),
+        .key_conduit(key128),
+        .enc_conduit(ciphertext128)
+    );
+
+    // ----------------------------------------------------------------
+    //  Split 128-bit ciphertext into 4 × 32-bit words
+    // ----------------------------------------------------------------
+    assign ciphertext0 = ciphertext128[127:96];
+    assign ciphertext1 = ciphertext128[95:64];
+    assign ciphertext2 = ciphertext128[63:32];
+    assign ciphertext3 = ciphertext128[31:0];
+
+endmodule
