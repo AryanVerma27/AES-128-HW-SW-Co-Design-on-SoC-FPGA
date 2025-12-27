@@ -8,11 +8,10 @@ Developed at the **University of Texas at Dallas** for the course *Design and An
 **Project Date:** Fall 2025  
 **Supervisor:** Prof. Dr. Benjamin Carrion Schaefer  
 **Authors:**
-* Salam Kadhim Al-Khammasi
 * Aryan Verma
 
 ## System Architecture
-[cite_start]The system architecture consists of three main components[cite: 1711]:
+The system architecture consists of three main components:
 1.  **HPS (Processor):** * Handles user input via terminal (up to 16 ASCII characters).
     * Generates the 128-bit Encryption Key.
     * Performs software-based decryption for validation (Golden Reference).
@@ -22,7 +21,7 @@ Developed at the **University of Texas at Dallas** for the course *Design and An
     * Control signals ensure synchronization.
 
 ## Resource Utilization
-[cite_start]The FPGA implementation yielded the following resource usage [cite: 1734-1740]:
+The FPGA implementation yielded the following resource usage:
 * **Logic Utilization (ALMs):** 15,701 (49%)
 * **Registers:** 8,400
 * **Fmax:** 24.64 MHz
