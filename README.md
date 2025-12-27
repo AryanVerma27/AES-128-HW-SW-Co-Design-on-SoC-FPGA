@@ -7,8 +7,8 @@ Developed at the **University of Texas at Dallas** for the course *Design and An
 
 **Project Date:** Fall 2025  
 **Supervisor:** Prof. Dr. Benjamin Carrion Schaefer  
-**Authors:**
-* Aryan Verma
+**Author:**
+ Aryan Verma
 
 ## System Architecture
 The system architecture consists of three main components:
